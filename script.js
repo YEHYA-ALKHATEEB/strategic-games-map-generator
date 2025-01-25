@@ -107,26 +107,26 @@ function addShape(x, y, width, height, color, label) {
   layer.draw();
 }
 
-// Add a new Banner
+// Add a new Banner (1x1 square)
 function addNewBanner() {
-  const randomX = Math.floor(Math.random() * gridCols) * gridSize;
-  const randomY = Math.floor(Math.random() * gridRows) * gridSize;
-  addShape(randomX, randomY, 1, 1, 'yellow', 'Banner');
-}
-
-// Add a new Spot
-function addNewSpot() {
-  const randomX = Math.floor(Math.random() * (gridCols - 1)) * gridSize; // Adjust for 2x1 size
-  const randomY = Math.floor(Math.random() * gridRows) * gridSize;
-  addShape(randomX, randomY, 2, 2, 'orange', 'Spot');
-}
-
-// Add a new Bear (3x3 square)
-function addNewBear() {
-  const randomX = Math.floor(Math.random() * (gridCols - 2)) * gridSize; // Adjust for 3x3 size
-  const randomY = Math.floor(Math.random() * (gridRows - 2)) * gridSize;
-  addShape(randomX, randomY, 3, 3, 'brown', 'Bear');
-}
+    const topCenterX = Math.floor(gridCols / 2) * gridSize; // Top center X
+    const topCenterY = 0; // Top Y position
+    addShape(topCenterX, topCenterY, 1, 1, 'yellow', 'Banner');
+  }
+  
+  // Add a new Spot (2x2 square)
+  function addNewSpot() {
+    const topCenterX = Math.floor(gridCols / 2 - 1) * gridSize; // Adjust for 2x2 width
+    const topCenterY = 0; // Top Y position
+    addShape(topCenterX, topCenterY, 2, 2, 'orange', 'Spot');
+  }
+  
+  // Add a new Bear (3x3 square)
+  function addNewBear() {
+    const topCenterX = Math.floor(gridCols / 2 - 1.5) * gridSize; // Adjust for 3x3 width
+    const topCenterY = 0; // Top Y position
+    addShape(topCenterX, topCenterY, 3, 3, 'brown', 'Bear');
+  }
 
 // Save map to local storage
 function saveMap() {
