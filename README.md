@@ -41,3 +41,7 @@ This project is hosted using **GitHub Pages**. You can access the live version [
 1. Clone this repository:
    ```bash
    git clone https://github.com/your-username/your-repo-name.git
+
+git add README.md
+git commit -m "Force redeploy"
+git push
