@@ -89,12 +89,18 @@ function addShape(x, y, width, height, color, label) {
     }
   });
 
-  // Right-click to change color
+  // Right-click to delete or change color
   group.on('contextmenu', (e) => {
     e.evt.preventDefault(); // Prevent the browser context menu
-    changeShapeColor(group);
+    const action = prompt('Enter action: "delete" to remove, or "color" to change the color:');
+    if (action === 'delete') {
+      deleteShape(group); // Call delete function
+    } else if (action === 'color') {
+      changeShapeColor(group); // Change color
+    }
   });
 
+  // Add the shape to the group and layer
   group.add(rect);
   group.add(text);
   layer.add(group);
@@ -189,12 +195,19 @@ function clearMap() {
 
 // Change the color of a selected shape
 function changeShapeColor(shapeGroup) {
-  // Prompt the user for a new color
   const newColor = prompt('Enter a new color (e.g., red, blue, #123456):', shapeGroup.findOne('Rect').fill());
   if (newColor) {
     const rect = shapeGroup.findOne('Rect');
     rect.fill(newColor); // Update the rectangle's fill color
     layer.draw(); // Redraw the layer to reflect the changes
+  }
+}
+
+// Delete a shape
+function deleteShape(shapeGroup) {
+  if (confirm('Are you sure you want to delete this shape?')) {
+    shapeGroup.destroy(); // Remove the shape from the canvas
+    layer.draw(); // Redraw the layer
   }
 }
 
@@ -220,3 +233,16 @@ function generateMap() {
   link.download = 'map.png';
   link.click();
 }
+
+// Delete shape with Delete key
+window.addEventListener('keydown', (e) => {
+  if ((e.key === 'Delete' || e.key === 'Backspace') && selectedShape) {
+    deleteShape(selectedShape);
+    selectedShape = null;
+  }
+});
+
+// Track selected shape on click
+stage.on('click', (e) => {
+  selectedShape = e.target.getParent() || null;
+});
