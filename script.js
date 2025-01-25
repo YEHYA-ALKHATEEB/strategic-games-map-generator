@@ -4,6 +4,7 @@ let gridCols = 20; // Initial number of columns
 let zoomLevel = 1; // Initial zoom level
 
 const container = document.getElementById('container');
+let selectedShape = null; // To track the currently selected shape
 
 // Function to update the container size and redraw the grid
 function updateContainerSize() {
@@ -54,7 +55,7 @@ function increaseGrid() {
   updateContainerSize();
 }
 
-// Function to add a shape (banner or spot)
+// Function to add a shape (banner, spot, or bear)
 function addShape(x, y, width, height, color, label) {
   const group = new Konva.Group({ x, y, draggable: true });
   const rect = new Konva.Rect({
@@ -73,9 +74,11 @@ function addShape(x, y, width, height, color, label) {
     align: 'center',
   });
 
+  // Center the text inside the rectangle
   text.x((width * gridSize - text.width()) / 2);
   text.y((height * gridSize - text.fontSize()) / 2);
 
+  // Double-click to rename
   group.on('dblclick', () => {
     const newText = prompt('Enter new text:', text.text());
     if (newText !== null && newText.trim() !== '') {
@@ -84,6 +87,12 @@ function addShape(x, y, width, height, color, label) {
       text.y((height * gridSize - text.fontSize()) / 2);
       layer.draw();
     }
+  });
+
+  // Right-click to change color
+  group.on('contextmenu', (e) => {
+    e.evt.preventDefault(); // Prevent the browser context menu
+    changeShapeColor(group);
   });
 
   group.add(rect);
@@ -101,9 +110,16 @@ function addNewBanner() {
 
 // Add a new Spot
 function addNewSpot() {
-  const randomX = Math.floor(Math.random() * (gridCols - 1)) * gridSize;
+  const randomX = Math.floor(Math.random() * (gridCols - 1)) * gridSize; // Adjust for 2x1 size
   const randomY = Math.floor(Math.random() * gridRows) * gridSize;
   addShape(randomX, randomY, 2, 2, 'orange', 'Spot');
+}
+
+// Add a new Bear (3x3 square)
+function addNewBear() {
+  const randomX = Math.floor(Math.random() * (gridCols - 2)) * gridSize; // Adjust for 3x3 size
+  const randomY = Math.floor(Math.random() * (gridRows - 2)) * gridSize;
+  addShape(randomX, randomY, 3, 3, 'brown', 'Bear');
 }
 
 // Save map to local storage
@@ -171,6 +187,17 @@ function clearMap() {
   alert('Saved map cleared!');
 }
 
+// Change the color of a selected shape
+function changeShapeColor(shapeGroup) {
+  // Prompt the user for a new color
+  const newColor = prompt('Enter a new color (e.g., red, blue, #123456):', shapeGroup.findOne('Rect').fill());
+  if (newColor) {
+    const rect = shapeGroup.findOne('Rect');
+    rect.fill(newColor); // Update the rectangle's fill color
+    layer.draw(); // Redraw the layer to reflect the changes
+  }
+}
+
 // Zoom In
 function zoomIn() {
   zoomLevel += 0.1;
@@ -193,10 +220,3 @@ function generateMap() {
   link.download = 'map.png';
   link.click();
 }
-
-// Add a new Bear (3x3 square)
-function addNewBear() {
-    const randomX = Math.floor(Math.random() * (gridCols - 2)) * gridSize; // Adjust for 3x3 size
-    const randomY = Math.floor(Math.random() * (gridRows - 2)) * gridSize;
-    addShape(randomX, randomY, 3, 3, 'brown', 'Bear');
-  }
