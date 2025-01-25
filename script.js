@@ -193,3 +193,10 @@ function generateMap() {
   link.download = 'map.png';
   link.click();
 }
+
+// Add a new Bear (3x3 square)
+function addNewBear() {
+    const randomX = Math.floor(Math.random() * (gridCols - 2)) * gridSize; // Adjust for 3x3 size
+    const randomY = Math.floor(Math.random() * (gridRows - 2)) * gridSize;
+    addShape(randomX, randomY, 3, 3, 'brown', 'Bear');
+  }
