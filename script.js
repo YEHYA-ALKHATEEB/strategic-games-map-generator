@@ -106,6 +106,71 @@ function addNewSpot() {
   addShape(randomX, randomY, 2, 2, 'orange', 'Spot');
 }
 
+// Save map to local storage
+function saveMap() {
+  const shapes = [];
+  stage.find('Group').forEach((group) => {
+    const rect = group.findOne('Rect');
+    const text = group.findOne('Text');
+
+    shapes.push({
+      x: group.x(),
+      y: group.y(),
+      width: rect.width() / gridSize,
+      height: rect.height() / gridSize,
+      color: rect.fill(),
+      label: text.text(),
+    });
+  });
+
+  const mapState = {
+    gridSize,
+    gridRows,
+    gridCols,
+    shapes,
+  };
+
+  localStorage.setItem('mapState', JSON.stringify(mapState));
+  alert('Map saved successfully!');
+}
+
+// Load map from local storage
+function loadMap() {
+  const savedMap = localStorage.getItem('mapState');
+  if (!savedMap) {
+    alert('No saved map found.');
+    return;
+  }
+
+  const mapState = JSON.parse(savedMap);
+
+  // Restore grid
+  gridSize = mapState.gridSize;
+  gridRows = mapState.gridRows;
+  gridCols = mapState.gridCols;
+  updateContainerSize();
+
+  // Restore shapes
+  mapState.shapes.forEach((shape) => {
+    addShape(
+      shape.x,
+      shape.y,
+      shape.width,
+      shape.height,
+      shape.color,
+      shape.label
+    );
+  });
+
+  alert('Map loaded successfully!');
+}
+
+// Clear saved map from local storage
+function clearMap() {
+  localStorage.removeItem('mapState');
+  alert('Saved map cleared!');
+}
+
 // Zoom In
 function zoomIn() {
   zoomLevel += 0.1;
