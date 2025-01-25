@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strategy Games Map Generator</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script src="https://cdn.jsdelivr.net/npm/konva@8/konva.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Strategy Games Map Generator</h1>
+
+  <!-- Main Content -->
+  <div class="main-layout">
+    <!-- Controls and Description on the left -->
+    <div class="controls-description">
+      <div class="controls">
+        <button onclick="addNewBanner()">Add Banner</button>
+        <button onclick="addNewSpot()">Add Spot</button>
+        <button onclick="increaseGrid()">Increase Grid</button>
+        <button onclick="generateMap()">Generate Map</button>
+        <button onclick="zoomIn()">Zoom In</button>
+        <button onclick="zoomOut()">Zoom Out</button>
+      </div>
+      <div class="description">
+        <p>
+          <strong>How to Use:</strong><br>
+          - Click <em>"Add Banner"</em> to add a banner.<br>
+          - Click <em>"Add Spot"</em> to add a spot.<br>
+          - Double-click any shape to rename it.<br>
+          - Use zoom buttons to zoom in/out, and scroll to navigate.
+        </p>
+      </div>
+
+      
+
+        <!-- Made With Love Section -->
+  <div class="made-with-love">
+    <img src="vlr.webp" alt="VLR" width="150" height="150">
+    <p>
+      Made with ❤️ for <strong>VLR - The Night Court Alliance</strong> and free for everyone to use.
+    </p>
+  </div>
+  <div class="social-links">
+    <!-- WhatsApp -->
+    <a href="https://wa.me/+96171382428" target="_blank" title="WhatsApp">
+      <img src="https://img.icons8.com/color/48/000000/whatsapp.png" alt="WhatsApp" />
+    </a>
+    <!-- LinkedIn -->
+    <a href="https://www.linkedin.com/in/yehya-alkhateeb" target="_blank" title="LinkedIn">
+      <img src="https://img.icons8.com/color/48/000000/linkedin.png" alt="LinkedIn" />
+    </a>
+    <!-- GitHub -->
+    <a href="https://www.linkedin.com/in/yehya-alkhateeb" target="_blank" title="GitHub">
+      <img src="https://img.icons8.com/ios-glyphs/48/000000/github.png" alt="GitHub" />
+    </a>
+  </div>
+    </div>
+
+    <!-- Grid container on the right -->
+    <div class="scroll-container">
+      <div id="container"></div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>Map Generator - Created by Yehya Al Khateeb</p>
+    <div class="social-links">
+      <!-- WhatsApp -->
+      <a href="https://wa.me/+96171382428" target="_blank" title="WhatsApp">
+        <img src="https://img.icons8.com/color/48/000000/whatsapp.png" alt="WhatsApp" />
+      </a>
+      <!-- LinkedIn -->
+      <a href="https://www.linkedin.com/in/yehya-alkhateeb" target="_blank" title="LinkedIn">
+        <img src="https://img.icons8.com/color/48/000000/linkedin.png" alt="LinkedIn" />
+      </a>
+      <!-- GitHub -->
+      <a href="https://www.linkedin.com/in/yehya-alkhateeb" target="_blank" title="GitHub">
+        <img src="https://img.icons8.com/ios-glyphs/48/000000/github.png" alt="GitHub" />
+      </a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
